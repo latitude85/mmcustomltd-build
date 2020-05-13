@@ -1,0 +1,17 @@
+backend:
+  name: github
+  repo: latitude85/hessen
+publish_mode: editorial_workflow
+media_folder: "static/images/uploads" # Media files will be stored in the repo under static/images/uploads
+public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
+collections:
+  - name: "page" # Used in routes, e.g., /admin/collections/blog
+    label: "Page" # Used in the UI
+    folder: "content" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Featured Image", name: "image", widget: "image" }
