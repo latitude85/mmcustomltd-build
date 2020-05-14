@@ -29,19 +29,34 @@ Ajax Contact Form
         $('.alert').remove();
 
         // Get data from form
-        const formData = $(this).serializeArray();
-        const body = convertFormData(formData);
+        var $form = $(this);
+        var serializedForm = $form.serializeArray();
+
+        function getFormField(fieldName) {
+            // We use filter over find because find isn't supported in any version
+            // of IE and the polyfill is simple enough that we can just do this.
+            return serializedForm.filter(function (field) {
+                return field.name === fieldName;
+            })[0].value;
+        }
 
         // Prepare data
         const data = {
             account: 'mmcustomltd',
             template: 'contact',
             data: {
-                subject: 'Contact form submission from MM Custom Ltd website',
-                email: body.email,
-                body: body
+                email: getFormField('from_email'),
+                body: {
+                    firstName: getFormField('first_name'),
+                    lastName: getFormField('last_name'),
+                    phoneNumber: getFormField('from_telephone'),
+                    emailAddress: getFormField('from_email'),
+                    message: getFormField('message'),
+                }
             }
         };
+
+        console.log(data);
 
         // Disable button
         $(this).find('button').attr('disabled', true);
