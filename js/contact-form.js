@@ -14,14 +14,6 @@ Ajax Contact Form
 (function ($, window, document, undefined) {
     'use strict';
 
-    const convertFormData = (rawData) => {
-        let data = {};
-        for (const el of rawData) {
-            data[el.name] = el.value;
-        }
-        return data;
-    }
-
     $('#contact-form').submit(function (e) {
         e.preventDefault();
 
